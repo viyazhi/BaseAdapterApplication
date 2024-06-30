@@ -12,8 +12,9 @@ import com.example.baseadapterapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     var binding: ActivityMainBinding? = null
-    var array = arrayListOf("Brandon", "Yvette", "Greg", "Brian")
-    var baseAdapterClass = BaseAdapterClass(array)
+    var list = arrayListOf("Physics", "Maths", "Java", "Python")
+    var studentList = arrayListOf<Student>()
+    var baseAdapterClass = BaseAdapterClass(studentList)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,6 +25,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        studentList.add(Student(rollNo = 1, "Brandon", "Physics"))
+        studentList.add(Student(rollNo = 2, "Yvette", "Maths"))
+        studentList.add(Student(rollNo = 3, "Greg", "Java"))
+        studentList.add(Student(rollNo = 3, "Michael", "Python"))
+        binding?.listView?.adapter = baseAdapterClass
+
         binding?.listView?.adapter = baseAdapterClass
 
         binding?.fab?.setOnClickListener {
@@ -38,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 if (etName?.text?.toString().isNullOrEmpty()) {
                     etName?.error = "Enter the student"
                 } else {
-                    array.add(etName.text.toString())
+                    list.add(etName.text.toString())
                     dialog.dismiss()
                     baseAdapterClass.notifyDataSetChanged()
                 }
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.listView?.setOnItemClickListener { parent, view, position, id ->
-            array.removeAt(position)
+            list.removeAt(position)
             baseAdapterClass.notifyDataSetChanged()
         }
         binding?.listView?.setOnItemLongClickListener { parent, view, position, id ->
@@ -54,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemLongClickListener true
 
 
+        }
+        binding?.fab?.setOnClickListener {
+            studentList.add(Student(4, "Daniel", "Kotlin"))
+            baseAdapterClass.notifyDataSetChanged()
         }
     }
 }
