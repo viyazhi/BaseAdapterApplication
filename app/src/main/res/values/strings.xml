@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Base Adapter Application</string>
+    <string name="enter_a_color">Color</string>
+    <string name="add_color">Add Color</string>
+    <string name="enter_a_name">Enter a Name\n</string>
+    <string name="add_name">Add Name</string>
+</resources>
